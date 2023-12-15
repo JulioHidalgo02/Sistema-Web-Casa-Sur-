@@ -1,12 +1,5 @@
 # Sistema Web Casa Surá #
 
-### Integrantes: ###
-* Julio Hidalgo Rojas
-* David Jiménez Valverde
-* Emmanuel Malavassi Serrano
-* Katharina Shumahine Carvajal
-
-
 ### Descripción del repositorio ###
 
 El repositorio es utilizado para el control del versionamiento de un sistema web administrativo y Ecommerce para una tienda ubicada en San Ignacio de Acosta.
