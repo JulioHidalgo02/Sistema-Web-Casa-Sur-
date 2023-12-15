@@ -1,0 +1,246 @@
+﻿@model Sistema_Web_Casa_Surá.Entities.VerUsuarioObj2
+
+@{
+    var nombreUsuario = Context.Session.GetString("NombreUsuario");
+    var Ced = Context.Session.GetString("Cedula");
+    ViewData["Title"] = "EditarUsuario";
+    var idUsuario = Context.Session.GetString("RolUsuario");
+    if(int.Parse(idUsuario) == 1){
+
+    }else{
+        Layout = "~/Views/Shared/_Layout_horizontal.cshtml";
+    }
+}
+
+<div class="page-content">
+                <div class="container-fluid">
+                    <!-- Page-Title -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="page-title-box">
+                                <div class="row">
+                                    <div class="col">
+                                        <h4 class="page-title">Perfil</h4>
+
+                                    </div><!--end col-->
+                                </div><!--end row-->                                                              
+                            </div><!--end page-title-box-->
+                        </div><!--end col-->
+                    </div><!--end row-->
+                    <!-- end page title end breadcrumb -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">                             
+                                <div class="card-body">
+                                    <div class="dastyle-profile">
+                                        <div class="row">
+                                            <div class="col-lg-4 align-self-center mb-3 mb-lg-0">
+                                                <div class="dastyle-profile-main">
+                                                    <div class="dastyle-profile_user-detail">
+                                                       <span class="ml-1 nav-user-name hidden-sm">@nombreUsuario</span>                                                                                                        
+                                                    </div>
+                                                </div>                                                
+                                            </div><!--end col-->
+                                            
+                                            <div class="col-lg-4 ml-auto align-self-center">
+                                                <ul class="list-unstyled personal-detail mb-0">
+                                        <li class=""><i class="las la-phone mr-2 text-secondary font-22 align-middle"></i> <b> Teléfono </b> : @Html.DisplayFor(Model => Model.Telefono)</li>
+                                                    <li class="mt-2"><i class="las la-envelope text-secondary font-22 align-middle mr-2"></i> <b> Correo Electrónico </b> : @Html.DisplayFor(Model => Model.CorreoElectronico)</li>
+                                                    </li>                                                   
+                                                </ul>
+                                               
+                                            </div><!--end col-->
+                                        </div><!--end row-->
+                                    </div><!--end f_profile-->                                                                                
+                                </div><!--end card-body-->          
+                            </div> <!--end card-->    
+                        </div><!--end col-->
+                    </div><!--end row-->
+                    <div class="pb-4">
+                        <ul class="nav-border nav nav-pills mb-0" id="pills-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link" id="settings_detail_tab" data-toggle="pill" href="#Profile_Settings">Configuración</a>
+                            </li>
+                        </ul>        
+                    </div><!--end card-body-->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="tab-content" id="pills-tabContent">
+                                <div aria-labelledby="settings_detail_tab">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-xl-6">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <div class="row align-items-center">
+                                                        <div class="col">                      
+                                                            <h4 class="card-title">Información Personal</h4>                      
+                                                        </div><!--end col-->                                                       
+                                                    </div>  <!--end row-->                                  
+                                                </div><!--end card-header-->
+                                                <div class="card-body">
+                                        @using (Html.BeginForm("EditarUsuario", "Perfil", FormMethod.Post))
+                                        {
+                                            @Html.HiddenFor(model => model.Ced)
+                                            @Html.HiddenFor(model => model.loginObj)
+                                                    <div class="form-group row">
+                                                        <label class="col-xl-3 col-lg-3 col-form-label">Nombre</label>
+                                                        <div class="col-lg-9 col-xl-8">
+                                                    @Html.TextBoxFor(Model => Model.Nombre, new {@class = "form-control" })
+                                                        </div>
+                                                <span asp-validation-for="Nombre" class="text-danger"></span>
+
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-xl-3 col-lg-3 col-form-label">Primer Apellido</label>
+                                                        <div class="col-lg-9 col-xl-8">
+                                                    @Html.TextBoxFor(Model => Model.Papellido, new {@class = "form-control"})
+                                                        </div>
+                                                <span asp-validation-for="Papellido" class="text-danger"></span>
+
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-xl-3 col-lg-3 col-form-label">Segundo Apellido</label>
+                                                        <div class="col-lg-9 col-xl-8">
+                                                    @Html.TextBoxFor(Model => Model.Sapellido, new {@class = "form-control"})
+                                                        </div>
+                                                <span asp-validation-for="Sapellido" class="text-danger"></span>
+                                                    </div>                       
+                                                    <div class="form-group row">
+                                                        <label class="col-xl-3 col-lg-3 col-form-label">Número de Teléfono</label>
+                                                        <div class="col-lg-9 col-xl-8">
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend"><span class="input-group-text"><i class="las la-phone"></i></span></div>
+                                                        @Html.TextBoxFor(Model => Model.Telefono, new {@class = "form-control"})
+                                                            </div>
+                                                    <span asp-validation-for="Telefono" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-xl-3 col-lg-3 col-form-label">Correo Electrónico</label>
+                                                        <div class="col-lg-9 col-xl-8">
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend"><span class="input-group-text"><i class="las la-at"></i></span></div>
+                                                        @Html.TextBoxFor(Model => Model.CorreoElectronico, new {@class = "form-control"})
+                                                            </div>
+                                                    <span asp-validation-for="CorreoElectronico" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-xl-3 col-lg-3 col-form-label">Provincia</label>
+                                                        <div class="col-lg-9 col-xl-8">
+                                                            <div class="input-group">
+                                                    <div class="input-group-prepend"><span class="input-group-text"><i class="dripicons-map"></i></span></div>
+                                                        @Html.TextBoxFor(Model => Model.Provincia, new {@class = "form-control"})
+                                                            </div>
+                                                    <span asp-validation-for="Provincia" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-xl-3 col-lg-3 col-form-label">Cantón</label>
+                                                        <div class="col-lg-9 col-xl-8">
+                                                            <div class="input-group">
+                                                    <div class="input-group-prepend"><span class="input-group-text"><i class="dripicons-map"></i></span></div>
+                                                        @Html.TextBoxFor(Model => Model.Canton, new {@class = "form-control"})
+                                                            </div>
+                                                    <span asp-validation-for="Canton" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-xl-3 col-lg-3 col-form-label">Distrito</label>
+                                                        <div class="col-lg-9 col-xl-8">
+                                                            <div class="input-group">
+                                                    <div class="input-group-prepend"><span class="input-group-text"><i class="dripicons-map"></i></span></div>
+                                                        @Html.TextBoxFor(Model => Model.Distrito, new {@class = "form-control"})
+                                                            </div>
+                                                    <span asp-validation-for="Distrito" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                        <div class="form-group row">
+                                            <label class="col-xl-3 col-lg-3 col-form-label">Dirección Exacta</label>
+                                            <div class="col-lg-9 col-xl-8">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend"><span class="input-group-text"><i class="dripicons-map"></i></span></div>
+                                                        @Html.TextBoxFor(Model => Model.DireccionExacta, new {@class = "form-control"})
+                                                </div>
+                                                    <span asp-validation-for="DireccionExacta" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                                    <div class="form-group row">
+                                                        <div class="col-lg-9 col-xl-8 offset-lg-3">
+                                                            <button type="submit" class="btn btn-primary btn-sm">Confirmar</button>
+                                                            <a href="@Url.Action("VerPerfil","Perfil")" class="btn btn-danger btn-sm">Cancelar</a>
+                                                        </div>
+                                                    </div>
+                                        }
+                                                </div>                                            
+                                            </div>
+                                        </div> <!--end col--> 
+                                       
+                                        <div class="col-lg-6 col-xl-6">
+                                            <div class="card">
+                                                 @using (Html.BeginForm("CambiarContrasenia", "Perfil", FormMethod.Post))
+                                        {
+                                                <div class="card-header">
+                                                    <h4 class="card-title">Cambiar Contraseña</h4>
+                                                </div><!--end card-header-->
+                                                <div class="card-body"> 
+                                                    <div class="form-group row">
+                                                        <label class="col-xl-3 col-lg-3 col-form-label">Nueva Contraseña</label>
+                                                        <div class="col-lg-9 col-xl-8">
+                                                    @Html.PasswordFor(Model => Model.loginObj.CONTRA, new {@class = "form-control"})
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-xl-3 col-lg-3 col-form-label">Confirmar Contraseña</label>
+                                                        <div class="col-lg-9 col-xl-8">
+                                                            <input class="form-control" type="password">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="col-lg-9 col-xl-8 offset-lg-3">
+                                                    <input type="submit" class="btn btn-primary btn-sm" value="Cambiar Contraseña"/>
+                                                        </div>
+                                                    </div>   
+                                                </div><!--end card-body-->
+                                    }
+                                </div><!--end card-->
+                                        </div> <!-- end col -->
+                                                                             
+                                    </div><!--end row-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!-- container -->
+            </div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            let mensaje = document.getElementById("txtMsj").value;
+            if (mensaje != "") {
+                if (mensaje == "Usuario Editado Con Éxito!") {
+                    GenerarMensajes("success", mensaje);
+                } else {
+                    GenerarMensajes("warning", mensaje);
+                }
+            }
+        });
+
+        function GenerarMensajes(tipo, mensaje) {
+
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 15000
+            });
+
+            Toast.fire({
+                icon: tipo,
+                title: mensaje
+            });
+        }
+    </script>
+}

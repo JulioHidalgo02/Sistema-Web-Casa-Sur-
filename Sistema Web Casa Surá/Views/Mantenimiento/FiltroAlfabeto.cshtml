@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Sistema_Web_Casa_Surá.Entities.InventarioObj>
+@{
+    ViewData["Title"] = "FiltroAlfabeto";
+    Layout = "~/Views/Shared/_Layout_Horizontal.cshtml";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <div class="row">
+                        <div class="col">
+                            <h4 class="page-title">Productos</h4>
+
+                            <div class="row">
+                                <div class="col-lg-6 text-right">
+                                </div>
+                                <div class="col-lg-6 text-right">
+                                    <div class="text-right">
+                                        <ul class="list-inline">
+                                            <li class="list-inline-item">
+                                                <div class="input-group">
+                                                    <input type="text" id="busqueda" name="example-input1-group2" class="form-control form-control-sm" placeholder="Buscar">
+                                                    <span class="input-group-append">
+                                                        <button id="search-button" href="" type="button" class="btn btn-primary btn-sm"><i class="fas fa-search"></i></button>
+                                                    </span>
+                                                </div>
+                                            </li>
+                                            <li class="list-inline-item">
+
+                                                <div class="col-auto">
+                                                    <div class="dropdown">
+                                                        <a href="#" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="fas fa-filter"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                            <a href="@Url.Action("FiltroAlfabeto", "Mantenimiento")" class="dropdown-item" id="asc">Orden alfábetico A-Z</a>
+                                                            <a href="@Url.Action("FiltroNoAlfabeto", "Mantenimiento")" class="dropdown-item" id="asc">Orden alfábetico Z-A</a>
+                                                            <a href="@Url.Action("FiltroMayor", "Mantenimiento")" class="dropdown-item" id="mayor">Mayor precio</a>
+                                                            <a href="@Url.Action("FiltroMenor", "Mantenimiento")" class="dropdown-item" id="menor">Menor precio</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                @if (item.CANTDISP > 0)
+                {
+                    <div class="col-md-3">
+                        <div class="card">
+
+                            <div class="card-body">
+
+                                <img src="@item.URL" alt="" id="resultado" class="d-block mx-auto my-4" height="150">
+                                <div class="row my-4">
+                                    <div class="col">
+                                        <span class="badge badge-light mb-2">@item.NOMBRECAT</span>
+                                        <a href="@Url.Action("DetalleProducto", "Productos", new { id = item.ID })" class="title-text d-block" id="nombre">@item.NOMBRE</a>
+                                    </div>
+                                    <div class="col-auto">
+                                        <h4 class="text-dark mt-0">₡ @item.PRECIO</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $('#search-button').click(function () {
+            var inputValue = $('#busqueda').val();
+            window.location.href = "@Url.Action("Busqueda", "Mantenimiento")?Fac=" + inputValue;
+        });
+    </script>
+
+}

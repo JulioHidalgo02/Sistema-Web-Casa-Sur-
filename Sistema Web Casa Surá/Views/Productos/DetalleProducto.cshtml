@@ -1,0 +1,49 @@
+﻿@model Sistema_Web_Casa_Surá.Entities.InventarioObj
+@{
+    ViewData["Title"] = "DetalleProducto";
+    Layout = "~/Views/Shared/_Layout_horizontal.cshtml";
+}
+@using (Html.BeginForm("AgregarAlCarrito", "Productos", FormMethod.Post))
+    {
+<div class="row">
+    
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-6 align-self-center">
+                            <img src="@Html.DisplayFor(m => m.URL)" alt="" class=" mx-auto  d-block" height="300">
+                    </div><!--end col-->
+                    <div class="col-lg-6 align-self-center">
+                            @Html.HiddenFor(m => m.ID)
+                            @Html.HiddenFor(m => m.CATEGORIA)
+                            @Html.HiddenFor(m => m.URL)
+                            @Html.HiddenFor(m => m.TALLA)
+                            @Html.HiddenFor(m => m.MARCA)
+                            @Html.HiddenFor(m => m.DESCRIPCION)
+                            @Html.HiddenFor(m => m.NOMBRECAT)
+                        <div class="single-pro-detail">
+                            <div class="custom-border mb-3"></div>
+                                <h3 class="pro-title">@Html.DisplayFor(m => m.NOMBRE)</h3>
+                                @Html.HiddenFor(m => m.NOMBRE)
+                                <h2 class="pro-price">₡ @Html.DisplayFor(m => m.PRECIO) </h2>
+                                @Html.HiddenFor(m => m.PRECIO)
+                            <h6 class="text-muted font-13">@Model.DESCRIPCION</h6>
+                            <ul class="list-unstyled pro-features border-0">
+                                <li>Talla: @Model.TALLA</li>
+                                <li>Marca: @Model.MARCA</li>
+                            </ul>
+                            <div class="quantity mt-3 ">
+                                    @Html.TextBoxFor(m => m.CANTDISP, new{@class="form-control form-control-sm", @readonly="readonly" })
+                                <button type="submit" class="btn btn-primary text-white px-4 d-inline-block"><i class="mdi mdi-cart mr-2"></i>Añadir al Carrito</button>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div><!--end card-body-->
+            
+        </div><!--end card-->
+    </div><!--end col-->
+    
+</div><!--end row-->
+}

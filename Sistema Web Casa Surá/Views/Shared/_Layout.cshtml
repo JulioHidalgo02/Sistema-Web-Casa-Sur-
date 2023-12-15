@@ -1,0 +1,143 @@
+﻿@{
+    var nombreUsuario = Context.Session.GetString("NombreUsuario");
+    var rol = Context.Session.GetString("RolUsuario");
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Sistema Web Casa Surá</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="~/images/favicon.ico">
+
+    <!-- App css -->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/jquery-ui.min.css" rel="stylesheet">
+    <link href="~/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/metisMenu.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/plugins/daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/app.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/plugins/sweet-alert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
+    <link href="~/plugins/animate/animate.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body class="dark-sidenav">
+    <!-- Left Sidenav -->
+    <div class="left-sidenav">
+        <!-- LOGO -->
+        <div class="brand">
+            <a href="@Url.Action("Index2","Home")" class="logo">
+                <span>
+                    <img src="~/images/CASA SURA Logo.png" height="60" >
+                </span>
+            </a>
+        </div>
+        <!--end logo-->
+        <div class="menu-content h-100" data-simplebar>
+            <ul class="metismenu left-sidenav-menu">
+                <li class="menu-label mt-0"></li>
+                <li>
+                    <a href="@Url.Action("VerCategorias","Categoria")"> <i data-feather="layers" class="align-self-center menu-icon"></i><span>Categorías</span><span class="menu-arrow"></span></a>
+                </li>
+                <li>
+                    <a href="@Url.Action("VerInventario","Inventario")"> <i data-feather="clipboard" class="align-self-center menu-icon"></i><span>Inventario</span><span class="menu-arrow"></span></a>
+                </li>
+				<li>
+                    <a href="@Url.Action("VerClientes","Clientes")"> <i data-feather="user" class="align-self-center menu-icon"></i><span>Clientes</span><span class="menu-arrow"></span></a>
+                </li>
+                <li>
+                    <a href="@Url.Action("VerApartados","Apartados")"> <i data-feather="package" class="align-self-center menu-icon"></i><span>Apartados</span><span class="menu-arrow"></span></a>
+                </li>
+				<li>
+                    <a href="@Url.Action("VerEnvios","Envios")"> <i data-feather="truck" class="align-self-center menu-icon"></i><span>Envíos</span><span class="menu-arrow"></span></a>
+                </li>
+                <li>
+                    <a href="@Url.Action("VerProveedores","Proveedores")"> <i data-feather="users" class="align-self-center menu-icon"></i><span>Proveedores</span><span class="menu-arrow"></span></a>
+                </li>
+               <li>
+                    <a href="@Url.Action("VerVentas","Productos")"> <i data-feather="trending-up" class="align-self-center menu-icon"></i><span>Ventas</span><span class="menu-arrow"></span></a>
+                </li>
+                <li>
+                    <a href="@Url.Action("VerErrores","Mantenimiento")"> <i data-feather="alert-triangle" class="align-self-center menu-icon"></i><span>Errores</span><span class="menu-arrow"></span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="page-wrapper">
+        <!-- Top Bar Start -->
+        <div class="topbar">
+            <!-- Navbar -->
+            <nav class="navbar-custom">
+                <ul class="list-unstyled topbar-nav float-right mb-0">
+                    <li class="dropdown hide-phone">
+                        <a class="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-toggle="dropdown" href="#" role="button"
+                           aria-haspopup="false" aria-expanded="false">
+
+                    </li>
+
+                    <li class="dropdown">
+                        <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
+                           aria-haspopup="false" aria-expanded="false">
+                            <span class="ml-1 nav-user-name hidden-sm">@nombreUsuario</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="@Url.Action("VerPerfil","Perfil")"><i data-feather="user" class="align-self-center icon-xs icon-dual mr-1"></i> Perfil</a>
+                            <div class="dropdown-divider mb-0"></div>
+                            <a class="dropdown-item" href="@Url.Action("CerrarSesion","Login")"><i data-feather="power" class="align-self-center icon-xs icon-dual mr-1"></i> Cerrar Sesión</a>
+                        </div>
+                    </li>
+                </ul><!--end topbar-nav-->
+
+                <ul class="list-unstyled topbar-nav mb-0">
+                    <li>
+                        <button class="nav-link button-menu-mobile">
+                            <i data-feather="menu" class="align-self-center topbar-icon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+            <!-- end navbar-->
+        </div>
+        <!-- Top Bar End -->
+        <!-- Page Content-->
+        <div class="page-content">
+            
+            @RenderBody();
+
+            <footer class="footer text-center text-sm-left">
+                &copy; 2022 Sistema Web Casa Surá 
+            </footer><!--end footer-->
+        </div>
+        <!-- end page content -->
+    </div>
+    <!-- end page-wrapper -->
+    <!-- jQuery  -->
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/metismenu.min.js"></script>
+    <script src="~/js/waves.js"></script>
+    <script src="~/js/feather.min.js"></script>
+    <script src="~/js/simplebar.min.js"></script>
+    <script src="~/js/jquery-ui.min.js"></script>
+    <script src="~/js/moment.js"></script>
+    <script src="~/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="~/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="~/js/jquery.validate.min.js"></script>
+    <script src="~/js/jquery.validate.js"></script>
+    <script src="~/js/jquery.form.js"></script>
+    <!-- App js -->
+    <script src="~/js/app.js"></script>
+
+    @RenderSection("Scripts", false)
+</body>
+
+</html>

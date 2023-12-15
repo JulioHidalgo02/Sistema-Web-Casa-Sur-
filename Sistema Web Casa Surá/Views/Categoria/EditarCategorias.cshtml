@@ -1,0 +1,31 @@
+﻿@model Sistema_Web_Casa_Surá.Entities.CategoriaObj
+@{
+    ViewData["Title"] = "EditarCategorias";
+}
+<div class="page-content">
+    <div class="container-fluid">
+         
+        <div class="card-body">
+            @using (Html.BeginForm("EditarCategorias", "Categoria", FormMethod.Post))
+             {
+            <div class="form-group row">
+               
+                @Html.HiddenFor(m => m.ID)
+                <label class="col-xl-3 col-lg-3 col-form-label">Nombre de la Categoría</label>
+                <div class="col-lg-9 col-xl-8">
+                    @Html.TextAreaFor(m => m.DESCRIPCION, new{@class = "form-control"})
+                        <span asp-validation-for="DESCRIPCION" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-lg-9 col-xl-8 offset-lg-3">
+                    <button type="submit" class="btn btn-primary btn-sm">Editar</button>
+                       
+                    <a href="@Url.Action("VerCategorias","Categoria")" type="button" class="btn btn-danger btn-sm">Cancelar</a>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>

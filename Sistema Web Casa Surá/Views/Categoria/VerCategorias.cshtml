@@ -1,0 +1,127 @@
+﻿@model IEnumerable<Sistema_Web_Casa_Surá.Entities.CategoriaObj>
+@{
+    ViewData["Title"] = "VerCategorias";
+}
+
+
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <div class="row">
+                        <div class="col">
+                            <h4 class="page-title">Categorías de Productos</h4>
+                        </div>
+                        <div class="col-auto align-self-center">
+                            <a href="#" class="btn btn-sm btn-outline-primary" id="Dash_Date">
+                                <span class="day-name" id="Day_Name">Fecha:</span>&nbsp;
+                                <span class="" id="Select_date">Jan 11</span>
+                                <i data-feather="calendar" class="align-self-center icon-xs ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <a href="@Url.Action("CrearCategorias","Categoria")" class="btn btn-outline-primary waves-effect waves-light"> Ingresar Categoría </a>
+                            <br />
+                            <br />
+                        <table id="tablaCategorias" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nombre de la Categoría</th>
+                                    <th>Acciones</th>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                            {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.ID)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.DESCRIPCION)</td>
+                                        <td>
+                                            <a href="@Url.Action("EditarCategorias","Categoria", new { id = item.ID })" type="button" class="btn btn-sm btn-outline-info mr-2"><i class="las la-pen text-info font-18"></i></a>
+
+                                            <a onclick="Confirmar(@item.ID)"  class="btn btn-sm btn-outline-info mr-2"><i class="las la-trash-alt text-danger font-18"></i></a>
+                                            
+                                        </td>
+                                    </tr>
+                            }
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+
+    </div><!-- container -->
+</div>
+
+
+
+@section Scripts
+    {
+    <script src="~/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="~/plugins/sweet-alert2/sweetalert2.min.js"></script>
+
+    <script>
+
+            $(document).ready(function () {
+                $('#tablaCategorias').DataTable({
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+                    },
+                });
+            });
+
+            function Confirmar(id){
+                    swal.fire({
+                        title: '¿ Estás seguro de eliminar la categoría ?',
+                        text: "No podrás revertir el cambio",
+                        //type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Si',
+                        cancelButtonText: 'No',
+                        reverseButtons: true
+                    }).then(function (result) {
+                        if (result.value) {
+                            $.ajax({
+                        url: '../Categoria/EliminarCategoria',
+                                data: { 'id': id},
+                                type: 'POST',
+                                dataType: 'json',
+                                success: function (respuesta) {
+
+                                }
+                            });
+                            swal.fire(
+                                'Eliminada!',
+                                'La categoría ha sido eliminada',
+                                'success'
+                                        
+                            )
+                            setTimeout(function () {
+                                window.location.reload(true);
+                            }, 2000);
+                        } else if (
+                            result.dismiss === Swal.DismissReason.cancel
+                        ) {
+                            swal.fire(
+                                'Cancelado',
+                                'Categoría no eliminada!',
+                                'error'
+                            )
+                        }
+                    });
+            }
+            
+    </script>
+}

@@ -1,0 +1,107 @@
+﻿@model IEnumerable<Sistema_Web_Casa_Surá.Entities.FacturaObj>
+@{
+    decimal total = 0;
+    ViewData["Title"] = "Carrito";
+    Layout = "~/Views/Shared/_Layout_horizontal.cshtml";
+    @foreach (var item in Model)
+    {
+        total = total + @item.TOTAL_LINEA;
+    }
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            <div class="row">
+                <div class="col">
+                    <h4 class="page-title">Carrito</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive shopping-cart">
+                    <a class="btn btn-danger text-white px-4 d-inline-block" href="@Url.Action("VaciarCarrito","Productos")">Vaciar Carrito</a>
+                    <table class="table mb-0">
+                        <thead>
+                            <tr>
+                                <th class="border-top-0">Producto</th>
+                                <th class="border-top-0">Precio</th>
+                                <th class="border-top-0">Cantidad</th>
+                                <th class="border-top-0">Total</th>
+                                <th class="border-top-0">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model) {
+                                <tr>
+                                    <td>
+                                        <p class="d-inline-block align-middle mb-0">
+                                            <a href="" class="d-inline-block align-middle mb-0 product-name">@item.Producto</a>
+                                        </p>
+                                    </td>
+                                    <td>₡@item.Precio</td>
+                                    <td>
+                                        <input class="form-control w-25" type="number" value="@item.CANTCOMPRADA" readonly>
+                                    </td>
+                                    <td>₡ @item.TOTAL_LINEA</td>
+                                    <td>
+                                        <a href="@Url.Action("EliminarCarrito","Productos", new{id = item.IDPRODUCTO})" class="text-dark"><i class="mdi mdi-close-circle-outline font-18"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-6 align-self-center">
+                    </div><!--end col-->
+                    <div class="col-md-6">
+                        <div class="total-payment p-3">
+                            <h4 class="header-title">Total</h4>
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td class="payment-title">Subtotal</td>
+                                        <td>₡ @total</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="payment-title">Envío</td>
+                                        <td>
+                                            <ul class="list-unstyled mb-0">
+                                                <li>
+                                                    <div class="radio radio-primary">
+                                                        <input type="radio" name="radio" id="radio_1" value="option_1" checked>
+                                                        <label for="radio_1">
+                                                            Recargo de envío : ₡ 2500
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="payment-title">Total</td>
+                                        <td class="text-dark"><strong>₡ @(total + 2500)</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+
+                                            <a class="btn btn-primary text-white px-4 d-inline-block" href="@Url.Action("Checkout","Productos")">Proceder al pago</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div><!--end card-->
+        </div><!--end card-body-->
+    </div><!--end col-->
+</div><!--end row-->

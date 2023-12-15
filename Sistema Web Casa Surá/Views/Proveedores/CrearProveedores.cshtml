@@ -1,0 +1,63 @@
+﻿@model Sistema_Web_Casa_Surá.Entities.ProveedoresObj
+@{
+    ViewData["Title"] = "CrearProveedores";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="page-title-box">
+            <div class="row">
+                <div class="col">
+                    <h2 class="page-title">Agregar Proveedores</h2>
+                </div>
+                <div class="col-auto align-self-center">
+                    <a href="#" class="btn btn-sm btn-outline-primary" id="Dash_Date">
+                        <span class="day-name" id="Day_Name">Today:</span>&nbsp;
+                        <span class="" id="Select_date">Jan 11</span>
+                        <i data-feather="calendar" class="align-self-center icon-xs ml-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm("CrearProveedores", "Proveedores", FormMethod.Post))
+             {
+            <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 col-form-label">Nombre de proveedores</label>
+                <div class="col-lg-9 col-xl-8">
+                    @Html.TextBoxFor(m => m.NOMBRE, new{@class = "form-control"})
+                    <span asp-validation-for="NOMBRE" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 col-form-label">Nombre de la empresa</label>
+                <div class="col-lg-9 col-xl-8">
+                    @Html.TextBoxFor(m => m.EMPRESA, new{@class = "form-control"})
+                    <span asp-validation-for="EMPRESA" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 col-form-label">Número de teléfono</label>
+                <div class="col-lg-9 col-xl-8">
+                    @Html.TextBoxFor(m => m.TEL, new{@class = "form-control"})
+                    <span asp-validation-for="TEL" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 col-form-label">Correo electrónicoo</label>
+                <div class="col-lg-9 col-xl-8">
+                    @Html.TextBoxFor(m => m.CORREO, new{@class = "form-control"})
+                    <span asp-validation-for="CORREO" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-lg-9 col-xl-8 offset-lg-3">
+                    <button type="submit" class="btn btn-primary btn-sm">Agregar Proveedor</button>
+                    <a href="@Url.Action("VerProveedores","Proveedores")" type="button" class="btn btn-danger btn-sm">Cancelar</a>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>

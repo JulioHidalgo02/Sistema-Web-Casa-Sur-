@@ -1,0 +1,239 @@
+﻿@model Sistema_Web_Casa_Surá.Entities.VerUsuarioObj2
+@{
+    decimal total = 0;
+    ViewData["Title"] = "Checkout";
+    Layout = "~/Views/Shared/_Layout_horizontal.cshtml";
+    @foreach (var item in Model.objetos)
+    {
+        total = total + @item.TOTAL_LINEA;
+    }
+}
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <div class="row">
+                        <div class="col">
+                            <h4 class="page-title">Checkout</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Detalle Compra</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive shopping-cart">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th class="border-top-0">Producto</th>
+                                        <th class="border-top-0">Cantidad</th>
+                                        <th class="border-top-0">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.objetos)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <p class="d-inline-block align-middle mb-0 product-name">@item.Producto</p>
+                                            </td>
+                                            <td>
+                                                @item.CANTCOMPRADA
+                                            </td>
+                                            <td>₡@item.TOTAL_LINEA</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="total-payment">
+                            <table class="table mb-0">
+                                <tbody>
+                                    <tr>
+                                        <td class="payment-title">Subtotal</td>
+                                        <td>₡@total</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="payment-title">Envio</td>
+                                        <td>
+                                            Envio : ₡2500
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="payment-title">Total</td>
+                                        <td class="text-dark"><strong>₡@(total + 2500)</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Informacion de Entrega</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label class="col-xl-3 col-lg-3 col-form-label">Nombre</label>
+                            <div class="col-lg-9 col-xl-8">
+                                @Html.TextBoxFor(m => m.Nombre, new{@class="form-control form-control-sm", @readonly="readonly" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-xl-3 col-lg-3 col-form-label">Primer Apellido</label>
+                            <div class="col-lg-9 col-xl-8">
+                                @Html.TextBoxFor(m => m.Papellido, new{@class="form-control form-control-sm", @readonly="readonly" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-xl-3 col-lg-3 col-form-label">Segundo Apellido</label>
+                            <div class="col-lg-9 col-xl-8">
+                                @Html.TextBoxFor(m => m.Sapellido, new{@class="form-control form-control-sm", @readonly="readonly" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-xl-3 col-lg-3 col-form-label">Dirección</label>
+                            <div class="col-lg-9 col-xl-8">
+                                @Html.TextAreaFor(m => m.Sapellido, new{@class="form-control form-control-sm", @readonly="readonly" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-xl-3 col-lg-3 col-form-label">Provincia</label>
+                            <div class="col-lg-9 col-xl-8">
+                                @Html.TextBoxFor(m => m.Provincia, new{@class="form-control form-control-sm", @readonly="readonly" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-xl-3 col-lg-3 col-form-label">Cantón</label>
+                            <div class="col-lg-9 col-xl-8">
+                                @Html.TextBoxFor(m => m.Canton, new{@class="form-control form-control-sm", @readonly="readonly" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-xl-3 col-lg-3 col-form-label">Distrito</label>
+                            <div class="col-lg-9 col-xl-8">
+                                @Html.TextBoxFor(m => m.Distrito, new{@class="form-control form-control-sm", @readonly="readonly" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-xl-3 col-lg-3 col-form-label">Correo Electrónico</label>
+                            <div class="col-lg-9 col-xl-8">
+                                @Html.TextBoxFor(m => m.CorreoElectronico, new{@class="form-control form-control-sm", @readonly="readonly" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-xl-3 col-lg-3 col-form-label">Teléfono</label>
+                            <div class="col-lg-9 col-xl-8">
+                                @Html.TextBoxFor(m => m.Telefono, new{@class="form-control form-control-sm", @readonly="readonly" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Detalles de Cobro</h4>
+                    </div>
+
+                    <div class="accordion" id="accordionExample">
+                        <div class="card mb-1 border shadow-none">
+                            <div class="card-header collapse show" id="headingOne" aria-labelledby="headingOne">
+                                <a href="" class="text-dark d-flex justify-content-between collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                    <span class="align-self-center">Sinpe Móvil</span>
+                                    <img src="~/images/cards/Sinpe.png" alt="" height="30">
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group collapse" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                            <label for="Card_No">Número de teléfono a realizar el sinpe</label>
+                                            <input type="text" class="form-control" id="Card_No" required="" placeholder="8678-4335" readonly>
+                                        </div>
+                                        <div class="form-group collapse" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                            <p>Por favor enviar el comprobante al número de teléfono donde se realizó el sinpe y se indicó anteriomente</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    @using (Html.BeginForm("CrearFactura", "Productos", FormMethod.Post))
+                                    {
+                                        <input type="hidden" value="Sinpe Movil" name="obj" />
+                                        <button class="btn btn-primary btn-sm">Confirmar Compra</button>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-1 border shadow-none">
+                        <div class="card-header" id="headingTwo">
+                            <a href="" class="text-dark d-flex justify-content-between collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                <span class="align-self-center">Paypal</span>
+                                <img src="~/images/cards/card-5.png" alt="" height="30">
+                            </a>
+                        </div>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                            <div class="card-body">
+                                <button class="btn btn-primary" onclick="pagar()">Pagar ahora</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+
+        function pagar() {
+
+            $.ajax({
+                url: '@Url.Action("Paypal", "Paypal")',
+                type: "POST",
+                data: JSON.stringify(),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    console.log(data);
+
+                    if (data.status) {
+
+                        var jsonresult = JSON.parse(data.respuesta);
+
+                        console.log(jsonresult);
+
+                        var links = jsonresult.links;
+
+                        var resultado = links.find(item => item.rel === "approve")
+
+                        window.location.href = resultado.href
+                    } else {
+                        alert("Vuelva a intentarlo más tarde")
+                    }
+
+
+                },
+            });
+
+
+        }
+
+    </script>
+
+}

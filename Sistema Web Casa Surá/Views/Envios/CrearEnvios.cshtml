@@ -1,0 +1,99 @@
+﻿@model Sistema_Web_Casa_Surá.Entities.EnviosObj
+@{
+    ViewData["Title"] = "CrearEnvios";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="page-title-box">
+            <div class="row">
+                <div class="col">
+                    <h2 class="page-title">Agregar Envío</h2>
+                </div>
+                <div class="col-auto align-self-center">
+                    <a href="#" class="btn btn-sm btn-outline-primary" id="Dash_Date">
+                        <span class="day-name" id="Day_Name">Today:</span>&nbsp;
+                        <span class="" id="Select_date">Jan 11</span>
+                        <i data-feather="calendar" class="align-self-center icon-xs ml-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        @using (Html.BeginForm("CrearEnvios", "Envios", FormMethod.Post))
+             {
+
+        <div class="card-body">
+            <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 col-form-label">Cédula</label>
+                <div class="col-lg-9 col-xl-8">
+                    @Html.TextBoxFor(Model => Model.Cedula, new {@class = "form-control", style="direction:ltr;", id="cedula", onchange = "ConsultarUsuario();", onclick = "VaciarCampos()"})
+                    <span asp-validation-for="Cedula" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 col-form-label">Nombre Completo</label>
+                <div class="col-lg-9 col-xl-8">
+                    @Html.TextBoxFor(Model => Model.Nombre, new {@class = "form-control", style="direction:ltr;", id="nombre", @readonly = "readonly"})
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 col-form-label">Número de Rastreo</label>
+                <div class="col-lg-9 col-xl-8">
+                        @Html.TextBoxFor(m => m.Rastreo, new{@class = "form-control"})
+                            <span asp-validation-for="Rastreo" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-lg-9 col-xl-8 offset-lg-3">
+                    <button type="submit" class="btn btn-primary btn-sm">Agregar Envío</button>
+                    <a href="@Url.Action("VerEnvios","Envios")" type="button" class="btn btn-danger btn-sm">Cancelar</a>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script src="~/plugins/sweet-alert2/sweetalert2.min.js"></script>
+    <script src="~/pages/jquery.sweet-alert.init.js"></script>
+
+    <script>
+        function ConsultarUsuario() {
+
+            let id = $("#cedula").val();
+            $.ajax({
+                url: '../Mantenimiento/ConsultarUsuario/' + id,
+                type: 'GET',
+                dataType: 'json',
+                success: function (respuesta) {
+                    var datos = JSON.parse(respuesta)
+                    if (datos == 1) {
+                        Swal.fire(
+                            'Usuario no encontrado',
+                            'Digite la cedula de un usuario registrado en el sistema',
+                            'question'
+                        );
+                    } else {
+                        $("#nombre").val(datos);
+                    }
+
+
+
+                }
+
+
+            });
+
+        }
+
+        function VaciarCampos() {
+            $("#nombre").val("");
+        }
+
+
+    </script>
+}
+

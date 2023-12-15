@@ -1,0 +1,133 @@
+﻿
+@{
+    
+    @using Sistema_Web_Casa_Surá.Entities
+    @using System.Text.Json
+    var nombreUsuario = Context.Session.GetString("NombreUsuario");
+    var rol = Context.Session.GetString("RolUsuario");
+    var carritoActual = Context.Session.GetString("DatosCarrito");
+    var contenido = JsonSerializer.Deserialize<List<FacturaObj>>(carritoActual);
+}
+<!DOCTYPE html>
+<html lang="es">
+
+    <head>
+        <meta charset="utf-8" />
+        <title>Sistema Web Casa Surá</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+        <meta content="" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="~/images/favicon.ico">
+
+        <!-- jvectormap -->
+        <link href="../plugins/jvectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet">
+
+        <!-- App css -->
+        <link href="~/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="~/css/jquery-ui.min.css" rel="stylesheet">
+        <link href="~/css/icons.min.css" rel="stylesheet" type="text/css" />
+        @*<link href="~/css/metisMenu.min.css" rel="stylesheet" type="text/css" />*@
+        <link href="~/plugins/daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css" />
+        <link href="~/css/app.min.css" rel="stylesheet" type="text/css" />
+
+    </head>
+
+    <body data-layout="horizontal" class="">
+        
+       <!-- Top Bar Start -->
+       <div class="topbar">  
+            <!-- LOGO -->
+            <div class="brand">
+                <a href="@Url.Action("Index","Home")" class="logo">
+                <span>
+                    <img src="~/images/CASA SURA Logo.png" height="60" >
+                </span>
+            </a>
+            </div>
+            <!--end logo-->  
+            <!-- Navbar -->
+            <nav class="navbar-custom">    
+                <ul class="list-unstyled topbar-nav float-right mb-0">                  
+
+                    <li class="dropdown">
+                    <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="" role="button"
+                            aria-haspopup="false" aria-expanded="false">
+                        <span class="ml-1 nav-user-name hidden-sm">@nombreUsuario</span>
+                    </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="@Url.Action("VerPerfil","Perfil")"><i data-feather="user" class="align-self-center icon-xs icon-dual mr-1"></i> Perfil</a>
+                            <div class="dropdown-divider mb-0"></div>
+                        <a class="dropdown-item" href="@Url.Action("CerrarSesion","Login")"><i data-feather="power" class="align-self-center icon-xs icon-dual mr-1"></i> Cerrar Sesión</a>
+                        </div>
+                    </li>
+                    <li class="dropdown notification-list">
+                    <a class="nav-link dropdown-toggle arrow-none waves-light waves-effect" href="@Url.Action("Carrito","Productos")"
+                       aria-haspopup="false" aria-expanded="false">
+                            <i data-feather="shopping-cart" class="align-self-center topbar-icon"></i>
+                            <span class="badge badge-danger badge-pill noti-icon-badge">@contenido.Count()</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="navbar-custom-menu">
+                    <div id="navigation">
+                        
+                        <ul class="navigation-menu">
+                            <li class="">
+                            <a href="@Url.Action("Index","Home")">
+                                    <span><i data-feather="tablet" class="align-self-center hori-menu-icon"></i>Tienda</span>
+                                </a>
+                            </li>
+                        <li class="">
+                            <a href="#">
+                                <span><i data-feather="alert-circle" class="align-self-center hori-menu-icon"></i>¿ Quiénes Somos ?</span>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="#">
+                                <span><i data-feather="check-circle" class="align-self-center hori-menu-icon"></i>Contacto</span>
+                            </a>
+                        </li>
+                        </ul>
+                    </div> 
+                </div>
+            </nav>
+        </div>
+        <div class="page-wrapper">
+            <!-- Page Content-->
+            <div class="page-content">
+                    @RenderBody()
+            </div>
+            <!-- end page content -->
+        </div>
+        <!-- end page-wrapper -->
+    <footer class="footer text-center text-sm-left">
+        &copy; 2022 Sistema Web Casa Surá
+    </footer><!--end footer-->
+
+        
+
+
+        <!-- jQuery  -->
+        <script src="~/js/jquery.min.js"></script>
+        <script src="~/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/metismenu.min.js"></script>
+        <script src="~/js/waves.js"></script>
+        <script src="~/js/feather.min.js"></script>
+        <script src="~/js/simplebar.min.js"></script>
+        <script src="~/js/jquery-ui.min.js"></script>
+        <script src="~/js/moment.js"></script>
+        <script src="~/plugins/daterangepicker/daterangepicker.js"></script>
+
+        <script src="~/plugins/jvectormap/jquery-jvectormap-2.0.2.min.js"></script>
+        <script src="~/plugins/jvectormap/jquery-jvectormap-us-aea-en.js"></script>
+
+        <!-- App js -->
+        <script src="~/js/app.js"></script>
+         @RenderSection("Scripts", false)
+    </body>
+
+</html>

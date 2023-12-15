@@ -1,0 +1,90 @@
+﻿@model Sistema_Web_Casa_Surá.Entities.InventarioObj;
+@{
+    ViewData["Title"] = "CrearInventario";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="page-title-box">
+            <div class="row">
+                <div class="col">
+                    <h2 class="page-title">Agregar Productos</h2>
+                </div><!--end col-->
+                <div class="col-auto align-self-center">
+                    <a href="" class="btn btn-sm btn-outline-primary" id="Dash_Date">
+                        <span class="day-name" id="Day_Name">Today:</span>&nbsp;
+                        <span class="" id="Select_date">Jan 11</span>
+                        <i data-feather="calendar" class="align-self-center icon-xs ml-1"></i>
+                    </a>
+                </div><!--end col-->
+            </div><!--end row-->
+        </div><!--end page-title-box-->
+        @using (Html.BeginForm("CrearInventario", "Inventario", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+        <div class="card-body">
+            <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 col-form-label">Nombre del Producto</label>
+                <div class="col-lg-9 col-xl-8">
+                        @Html.TextBoxFor(m => m.NOMBRE, new{@class = "form-control"})
+                        <span asp-validation-for="NOMBRE" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 col-form-label">Marca</label>
+                <div class="col-lg-9 col-xl-8">
+                        @Html.TextBoxFor(m => m.MARCA, new{@class = "form-control"})
+                        <span asp-validation-for="MARCA" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 col-form-label">Talla</label>
+                <div class="col-lg-9 col-xl-8">
+                        @Html.TextBoxFor(m => m.TALLA, new{@class = "form-control"})
+                        <span asp-validation-for="TALLA" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 col-form-label">Categoría</label>
+                <div class="col-lg-9 col-xl-8">
+                        @Html.DropDownListFor(m => m.CATEGORIA,
+                    ViewBag.ComboTipos as List<SelectListItem>, new { @class="form-control" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 col-form-label">Precio</label>
+                <div class="col-lg-9 col-xl-8">
+                        @Html.TextBoxFor(m => m.PRECIO, new{@class = "form-control", type="number"})
+                        <span asp-validation-for="PRECIO" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 col-form-label">Descripción</label>
+                <div class="col-lg-9 col-xl-8">
+                        @Html.TextAreaFor(m => m.DESCRIPCION, new{@class = "form-control"})
+                        <span asp-validation-for="DESCRIPCION" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 col-form-label">Cantidad Disponible</label>
+                <div class="col-lg-9 col-xl-8">
+                        @Html.TextBoxFor(m => m.CANTDISP, new{@class = "form-control" , type="number"})
+                        <span asp-validation-for="CANTDISP" class="text-danger"></span>
+                </div>
+            </div>
+                <div class="form-group row">
+                    <label class="col-xl-3 col-lg-3 col-form-label">Imagen</label>
+                    <div class="col-lg-9 col-xl-8">
+                        <input type="file" class="form-control bg-white" name="imagen" id="ejemplo">
+                    </div>
+                </div>
+
+            <div class="form-group row">
+                <div class="col-lg-9 col-xl-8 offset-lg-3">
+                    <button type="submit" class="btn btn-primary btn-sm">Ingresar Producto</button>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+

@@ -1,0 +1,158 @@
+﻿@model IEnumerable<Sistema_Web_Casa_Surá.Entities.ApartadosObj>
+@{
+    ViewData["Title"] = "VerApartados";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <div class="row">
+                        <div class="col">
+                            <h4 class="page-title">Apartados</h4>
+                        </div>
+                        <div class="col-auto align-self-center">
+                            <a href="#" class="btn btn-sm btn-outline-primary" id="Dash_Date">
+                                <span class="day-name" id="Day_Name">Fecha:</span>&nbsp;
+                                <span class="" id="Select_date">Jan 11</span>
+                                <i data-feather="calendar" class="align-self-center icon-xs ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <a href="@Url.Action("RealizarApartado","Apartados")" class="btn btn-outline-primary waves-effect waves-light"> Registrar apartado </a>
+                        <br />
+                        <br />
+                        <table id="tablaApartados" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>Id de apartado</th>
+                                    <th>Cédula</th>
+                                    <th>Nombre</th>
+                                    <th>Primer Apellido</th>
+                                    <th>Seguno Apellido</th>
+                                    <th>Teléfono</th>
+                                    <th>Fecha límite</th>
+                                    <th>Saldo a pagar</th>
+                                    <th>Abonos</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.IdApartados</td>
+                                        <td>@item.CedulaUsuario</td>
+                                        <td>@item.Nombre</td>
+                                        <td>@item.Papellido</td>
+                                        <td>@item.Sapellido</td>
+                                        <td>@item.Telefono</td>
+                                        @{
+                                            DateTime Fecha = @item.FechaLimite;
+                                            DateTime today = DateTime.Today;
+                                            DateTime FehcaLim = Fecha;
+                                            TimeSpan tiemporestante = FehcaLim - today;
+                                            int restantes = tiemporestante.Days;
+                                        }
+                                        <td>@item.FechaLimite
+                                            <br></br>
+                                            @if(@restantes <= 10)
+                                            {
+                                                <span class="badge badge-soft-pink font-weight-semibold ml-2"><i class="far fa-fw fa-clock"></i> @restantes días restantes </span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge badge-soft-primary font-weight-semibold ml-2"><i class="far fa-fw fa-clock"></i> @restantes días restantes </span>
+                                            }
+                                            </td>
+                                        <td>@item.Saldo</td>
+                                        <td>@item.Abonos</td>
+                                        <td>@item.Estado</td>
+                                        <td>
+                                            <a href="@Url.Action("EditarApartado","Apartados", new {IdApartados = item.IdApartados})" type="button" class="btn btn-sm btn-outline-info mr-2"><i class="las la-pen text-info font-18"></i></a>
+                                            @if (@item.Saldo != 0)
+                                            {
+                                                <a href="@Url.Action("RealizarAbono","Apartados", new {IdApartados = item.IdApartados})" type="button" class="btn btn-sm btn-outline-info mr-2"><i class="dripicons-upload text-info font-16"></i></a>
+                                            }
+                                            <a onclick="Confirmar(@item.IdApartados)" class="btn btn-sm btn-outline-info mr-2"><i class="las la-trash-alt text-danger font-18"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+@section Scripts
+    {
+    <script src="~/plugins/sweet-alert2/sweetalert2.min.js"></script>
+    <script src="~/pages/jquery.sweet-alert.init.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#tablaApartados').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+                },
+            });
+        });
+
+
+        function Confirmar(idApartados) {
+            swal.fire({
+                title: '¿Estás seguro de eliminar este apartado?',
+                text: "No podrás revertir el cambio",
+                //type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Si',
+                cancelButtonText: 'No',
+                reverseButtons: true
+            }).then(function(result) {
+                if (result.value) {
+                    $.ajax({
+                        url: '../Apartados/EliminarApartado',
+                        data: { 'idApartados': idApartados },
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function(respuesta) {
+
+                        }
+                    });
+                    swal.fire(
+                        'Eliminada!',
+                        'El apartado ha sido eliminado',
+                        'success'
+                    )
+                    setTimeout(function() {
+                        window.location.reload(true);
+                    }, 2000);
+                } else if (
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swal.fire(
+                        'Cancelado',
+                        'El apartado no ha sido eliminado!',
+                        'error'
+                    )
+                }
+            });
+        }
+
+    </script>
+
+}

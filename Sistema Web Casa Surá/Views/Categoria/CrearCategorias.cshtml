@@ -1,0 +1,43 @@
+﻿@model Sistema_Web_Casa_Surá.Entities.CategoriaObj
+@{
+    ViewData["Title"] = "CrearCategorias";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="page-title-box">
+            <div class="row">
+                <div class="col">
+                    <h2 class="page-title">Agregar Categoría</h2>
+                </div>
+                <div class="col-auto align-self-center">
+                    <a href="#" class="btn btn-sm btn-outline-primary" id="Dash_Date">
+                        <span class="day-name" id="Day_Name">Today:</span>&nbsp;
+                        <span class="" id="Select_date">Jan 11</span>
+                        <i data-feather="calendar" class="align-self-center icon-xs ml-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        @using (Html.BeginForm("CrearCategorias", "Categoria", FormMethod.Post))
+             {
+        <div class="card-body">
+            <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 col-form-label">Nombre de la Categoría</label>
+                <div class="col-lg-9 col-xl-8">
+                     @Html.TextAreaFor(m => m.DESCRIPCION, new{@class = "form-control"})
+                        <span asp-validation-for="DESCRIPCION" class="text-danger"></span>
+                </div>
+                    
+            </div>
+
+            <div class="form-group row">
+                <div class="col-lg-9 col-xl-8 offset-lg-3">
+                    <button type="submit" class="btn btn-primary btn-sm">Agregar Categoría</button>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+

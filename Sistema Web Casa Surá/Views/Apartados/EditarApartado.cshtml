@@ -1,0 +1,97 @@
+﻿@model Sistema_Web_Casa_Surá.Entities.ApartadosObj
+@{
+    ViewData["Title"] = "Editar abono";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="page-title-box">
+            <div class="row">
+                <div class="col">
+                    <h2 class="page-title">Editar abono</h2>
+                </div><!--end col-->
+                <div class="col-auto align-self-center">
+                    <a href="#" class="btn btn-sm btn-outline-primary" id="Dash_Date">
+                        <span class="day-name" id="Day_Name">Today:</span>&nbsp;
+                        <span class="" id="Select_date">Jan 11</span>
+                        <i data-feather="calendar" class="align-self-center icon-xs ml-1"></i>
+                    </a>
+                </div><!--end col-->
+            </div><!--end row-->
+        </div><!--end page-title-box-->
+        <div class="card-body">
+
+            @using (Html.BeginForm("EditarApartado", "Apartados", FormMethod.Post, new { enctype = "multipart/form-data" }))
+          {
+            <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 col-form-label">Id de abono</label>
+                <div class="col-lg-9 col-xl-8">
+                    @Html.TextBoxFor(m => m.IdApartados, new{@class = "form-control", @readonly = "readonly"})
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 col-form-label">Cédula</label>
+                <div class="col-lg-9 col-xl-8">
+                    @Html.TextBoxFor(m => m.CedulaUsuario, new{@class = "form-control", @readonly = "readonly"})
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 col-form-label">Nombre</label>
+                <div class="col-lg-9 col-xl-8">
+                     @Html.TextBoxFor(m => m.Nombre, new{@class = "form-control", @readonly = "readonly"})
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 col-form-label">Primer apellido</label>
+                <div class="col-lg-9 col-xl-8">
+                   @Html.TextBoxFor(m => m.Papellido, new{@class = "form-control", @readonly = "readonly"})
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 col-form-label">Segundo apellido</label>
+                <div class="col-lg-9 col-xl-8">
+                   @Html.TextBoxFor(m => m.Sapellido, new{@class = "form-control", @readonly = "readonly"})
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 col-form-label">Teléfono</label>
+                <div class="col-lg-9 col-xl-8">
+                     @Html.TextBoxFor(m => m.Telefono, new{@class = "form-control", @readonly = "readonly"})
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 col-form-label">Fecha de vencimiento</label>
+                <div class="col-lg-9 col-xl-8"> 
+                    <input class="form-control" asp-for="FechaLimite" id="fecha"/>
+                    <span asp-validation-for="FechaLimite" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 col-form-label">Saldo a pagar</label>
+                <div class="col-lg-9 col-xl-8">
+                   @Html.TextBoxFor(m => m.Saldo, new{@class = "form-control"})
+                   <span asp-validation-for="Saldo" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 col-form-label">Abonos</label>
+                <div class="col-lg-9 col-xl-8">
+                     @Html.TextBoxFor(m => m.Abonos, new{@class = "form-control", @readonly = "readonly"})
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 col-form-label">Estado</label>
+                <div class="col-lg-9 col-xl-8">
+                     @Html.TextBoxFor(m => m.Estado, new{@class = "form-control", @readonly = "readonly"})
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-9 col-xl-8 offset-lg-3">
+                    <button type="submit" class="btn btn-primary btn-sm">Editar</button>
+                    <a href="@Url.Action("VerApartados","Apartados")" type="button" class="btn btn-danger btn-sm" >Cancelar</a>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+    </div>

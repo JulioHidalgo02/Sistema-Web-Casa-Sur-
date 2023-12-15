@@ -1,0 +1,137 @@
+﻿@model IEnumerable<Sistema_Web_Casa_Surá.Entities.InventarioObj>
+@{
+    ViewData["Title"] = "VerInventario";
+}
+
+<div class="page-content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="page-title-box">
+                                <div class="row">
+                                    <div class="col">
+                                        <h4 class="page-title">Inventario de Activos</h4>
+                                    </div>
+                                    <div class="col-auto align-self-center">
+                                        <a href="#" class="btn btn-sm btn-outline-primary" id="Dash_Date">
+                                            <span class="day-name" id="Day_Name">Fecha:</span>&nbsp;
+                                            <span class="" id="Select_date">Jan 11</span>
+                                            <i data-feather="calendar" class="align-self-center icon-xs ml-1"></i>
+                                        </a>
+                                    </div>
+                                </div>                                                            
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                        <a href="@Url.Action("CrearInventario","Inventario")" class="btn btn-outline-primary waves-effect waves-light"> Ingresar Producto </a>
+                            <br />
+                            <br />
+                                    <table id="tablaProductos" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                        <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Nombre del Producto</th>
+                                            <th>Categoría</th>
+                                            <th>Marca</th>
+                                            <th>Talla</th>
+                                            <th>Precio</th>
+                                            <th>Descripción</th>
+                                            <th>Cantidad Disponible</th>
+                                            <th>Acciones</th>
+                                        </thead>
+                                        <tbody>
+                                             @foreach (var item in Model){
+                                                <tr>
+                                                    <td>@item.ID</td>
+                                                    <td>
+                                                        <img src="@item.URL" alt="" height="50" width="60">
+                                                        <p class="d-inline-block align-middle mb-0">
+                                                        <p href="" class="d-inline-block align-middle mb-0 product-name">@item.NOMBRE</p>
+                                                    </td>
+                                                    <td>@item.NOMBRECAT</td>
+                                                    <td>@item.MARCA</td>
+                                                    <td>@item.TALLA</td>
+                                                    <td>₡ @item.PRECIO</td>
+                                                    <td>@item.DESCRIPCION</td>
+                                                    <td>@item.CANTDISP</td>
+                                                    <td>
+                                                        <a href="@Url.Action("EditarInventario","Inventario", new { id = item.ID })" type="button" class="btn btn-sm btn-outline-info mr-2"><i class="las la-pen text-info font-18"></i></a>
+                                                        <a onclick="Confirmar(@item.ID)" class="btn btn-sm btn-outline-info mr-2"><i class="las la-trash-alt text-danger font-18"></i></a>
+                                                    </td>
+                                                </tr>
+                                             }
+                                        </tbody>
+                                    </table>        
+                                </div>
+                            </div>
+                        </div> <!-- end col -->
+                    </div> <!-- end row -->
+
+                </div><!-- container -->
+            </div>
+
+
+
+@section Scripts
+{
+    <script src="~/plugins/sweet-alert2/sweetalert2.min.js"></script>
+    <script src="~/pages/jquery.sweet-alert.init.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            $('#tablaProductos').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+                },
+            });
+        });
+
+        function Confirmar(id) {
+            swal.fire({
+                title: '¿ Estás seguro de eliminar este producto ?',
+                text: "No podrás revertir el cambio",
+                //type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Si',
+                cancelButtonText: 'No',
+                reverseButtons: true
+            }).then(function (result) {
+                if (result.value) {
+                    $.ajax({
+                        url: '../Inventario/EliminarProducto',
+                        data: { 'id': id },
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (respuesta) {
+
+                        }
+                    });
+                    swal.fire(
+                        'Eliminada!',
+                        'El producto ha sido eliminado',
+                        'success'
+
+                    )
+                    setTimeout(function () {
+                        window.location.reload(true);
+                    }, 2000);
+                } else if (
+                    // Read more about handling dismissals
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swal.fire(
+                        'Cancelado',
+                        'Producto no eliminado!',
+                        'error'
+                    )
+                }
+            });
+        }
+
+    </script>
+}

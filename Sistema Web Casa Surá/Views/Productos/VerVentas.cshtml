@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Sistema_Web_Casa_Surá.Entities.VentasObj>
+@{
+    ViewData["Title"] = "VerVentas ";
+}
+
+<div class="page-content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="page-title-box">
+                                <div class="row">
+                                    <div class="col">
+                                        <h4 class="page-title">Ventas Realizadas</h4>
+                                    </div>
+                                    <div class="col-auto align-self-center">
+                                    </div>
+                                </div>                                                            
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                        <table id="tablaVentas" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>Factura</th>
+                                    <th>Cédula</th>
+                                    <th>Nombre</th>
+                                    <th>Total</th>
+                                    <th>Detalle Pago</th>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.ID)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Cedula)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                                        <td>₡ @Html.DisplayFor(modelItem => item.Total)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.DetallePago)</td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                            </div>
+                        </div> <!-- end col -->
+                    </div> <!-- end row -->
+
+                </div><!-- container -->
+            </div>
+
+
+
+@section Scripts
+{
+    <script src="~/plugins/sweet-alert2/sweetalert2.min.js"></script>
+    <script src="~/pages/jquery.sweet-alert.init.js"></script>
+
+<script>
+
+        $(document).ready(function () {
+            $('#tablaVentas').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+                },
+            });
+        });
+</script>
+}
